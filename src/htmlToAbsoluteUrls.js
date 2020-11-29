@@ -22,5 +22,5 @@ module.exports = function(htmlContent, base) {
 
   let modifier = posthtml().use(urls(options));
 
-  return modifier.process(htmlContent);
+  return modifier.process(htmlContent, { sync: true });
 };

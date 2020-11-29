@@ -3,7 +3,7 @@ const absoluteUrl = require("./src/absoluteUrl");
 const htmlToAbsoluteUrls = require("./src/htmlToAbsoluteUrls");
 
 module.exports = function(eleventyConfig) {
-  eleventyConfig.addNunjucksFilter("rssLastUpdatedDate", collection => {
+  eleventyConfig.addFilter("rssLastUpdatedDate", collection => {
     if( !collection || !collection.length ) {
       throw new Error( "Collection is empty in rssLastUpdatedDate filter." );
     }
@@ -12,11 +12,11 @@ module.exports = function(eleventyConfig) {
     return dateToISO(new Date(Math.max(...collection.map(item => {return item.date}))));
   });
 
-  eleventyConfig.addNunjucksFilter("rssDate", dateObj => dateToISO(dateObj));
+  eleventyConfig.addFilter("rssDate", dateObj => dateToISO(dateObj));
 
-  eleventyConfig.addNunjucksFilter("absoluteUrl", (href, base) => absoluteUrl(href, base));
+  eleventyConfig.addFilter("absoluteUrl", (href, base) => absoluteUrl(href, base));
 
-  eleventyConfig.addNunjucksAsyncFilter("htmlToAbsoluteUrls", (htmlContent, base, callback) => {
+  eleventyConfig.addFilter("htmlToAbsoluteUrls", (htmlContent, base, callback) => {
     if(!htmlContent) {
       callback(null, "");
       return;
